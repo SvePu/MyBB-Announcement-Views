@@ -63,7 +63,7 @@ function announcementviews_install()
 	);
     $gid = $db->insert_query("settinggroups", $announcementviews_group);
 	
-	$indexads_setting_array = array(
+	$announcementviews_setting_array = array(
 		'announcementviews_enable' => array(
 			'title'			=> $db->escape_string($lang->announcementviews_enable_title),
 			'description'  	=> $db->escape_string($lang->announcementviews_enable_title_desc),
@@ -73,7 +73,7 @@ function announcementviews_install()
 		)
 	);
 
-	foreach($indexads_setting_array as $name => $setting)
+	foreach($announcementviews_setting_array as $name => $setting)
 	{
 		$setting['name'] = $name;
 		$setting['gid'] = $gid;
