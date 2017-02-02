@@ -126,10 +126,8 @@ function announcementviews_activate()
 	require_once MYBB_ROOT."/inc/adminfunctions_templates.php";
 	find_replace_templatesets(
 		"forumdisplay_announcements_announcement",
-		"#" . preg_quote('<td align="center" class="{$bgcolor} forumdisplay_announcement">-</td>
-{$rating}') . "#i",
-		'<td align="center" class="{$bgcolor} forumdisplay_announcement">{$annoviews}</td>
-{$rating}'
+		"#" . preg_quote("<td align=\"center\" class=\"{\$bgcolor} forumdisplay_announcement\">-</td>\r\n{\$rating}") . "#i",
+		"<td align=\"center\" class=\"{\$bgcolor} forumdisplay_announcement\">{\$annoviews}</td>\r\n{\$rating}"
 	);
 	
 	
