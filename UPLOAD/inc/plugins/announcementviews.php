@@ -1,6 +1,6 @@
 <?php
 /*
-Announcement Views Plugin for MyBB 1.8 - v1.1
+Announcement Views Plugin for MyBB 1.8 - v1.2
 Copyright (C) 2017 SvePu
 
 This program is free software: you can redistribute it and/or modify
@@ -42,7 +42,7 @@ function announcementviews_info()
         "website"       => "https://github.com/SvePu/MyBB-Announcement-Views",
         "author"        => "SvePu",
         "authorsite"    => "https://community.mybb.com/user-91011.html",
-        "version"       => "1.1",
+        "version"       => "1.2",
         "codename"      => "announcementviews",
         "compatibility" => "18*"
     );
@@ -141,13 +141,13 @@ function announcementviews_uninstall()
 function announcementviews_activate()
 {
     require_once MYBB_ROOT . "/inc/adminfunctions_templates.php";
-    find_replace_templatesets("forumdisplay_announcements_announcement", "#" . preg_quote("forumdisplay_announcement\">-</td>\n{\$rating}") . "#i", "forumdisplay_announcement\">{\$annoviews}</td>\n{\$rating}");
+    find_replace_templatesets("forumdisplay_announcements_announcement", "#" . preg_quote("forumdisplay_announcement\">-</td>\n{\$rating}") . "#i", "forumdisplay_announcement\">{\$announcement['views']}</td>\n{\$rating}");
 }
 
 function announcementviews_deactivate()
 {
     require_once MYBB_ROOT . "/inc/adminfunctions_templates.php";
-    find_replace_templatesets("forumdisplay_announcements_announcement", "#" . preg_quote('{$annoviews}') . "#i", '-');
+    find_replace_templatesets("forumdisplay_announcements_announcement", "#" . preg_quote('{$announcement[\'views\']}') . "#i", '-');
 }
 
 function announcementviews_load_lang()
@@ -167,9 +167,14 @@ function announcementviews_run()
 
 function announcementviews_show()
 {
-    global $mybb, $annoviews, $announcement;
-    if ($mybb->settings['announcementviews_enable'] == 1)
+    global $mybb, $announcement;
+
+    if ($mybb->settings['announcementviews_enable'] != 0)
     {
-        $annoviews = my_number_format($announcement['views']);
+        $announcement['views'] = my_number_format($announcement['views']);
+    }
+    else
+    {
+        $announcement['views'] = '-';
     }
 }
